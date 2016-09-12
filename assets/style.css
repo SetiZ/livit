@@ -1,0 +1,76 @@
+.demo-card-image.mdl-card {
+  width: 256px;
+  height: 256px;
+  background-position: center;
+  background-size: cover;
+  cursor: pointer;
+}
+.demo-card-image > .mdl-card__actions {
+  display: flex;
+  box-sizing:border-box;
+  height: 52px;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  /*transition: height ease-out .5s;*/
+}
+
+.docs-text-styling h1 {
+  font-size: 16px;
+  color: rgba(0,0,0,.54);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.demo-card-image > .mdl-card__actions > .material-icons {
+  padding-right: 10px;
+}
+
+.demo-card-image >  .mdl-card__supporting-text {
+  display: none;
+}
+
+.demo-card-image:hover >  .mdl-card__supporting-text {
+  display: flex;
+}
+
+.year {
+  display: block;
+}
+
+.demo-card-image__filename {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.main-content {
+  padding: 1em;
+  width:65%;
+  margin: 0;
+  float: left;
+}
+
+.sidebar {
+  padding: 1em;
+  width:30%;
+  float: right;
+}
+
+.sidebar > .featured {
+  border-left: grey 1px solid;
+}
+
+.dialog {
+  min-width: 640px;
+  height: auto;
+}
+
+.dialog_image {
+  max-width: 640px;
+  width: 100%;
+}
+
+#lightbox {
+  width: auto;
+  max-width: 640px;
+}
