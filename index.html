@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="stylesheet" type="text/css" href="/node_modules/dialog-polyfill/dialog-polyfill.css" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/CreativeIT/getmdl-select/master/getmdl-select.min.css">
+   <script defer src="https://cdn.rawgit.com/CreativeIT/getmdl-select/master/getmdl-select.min.js"></script>
   <script src="/node_modules/dialog-polyfill/dialog-polyfill.js"></script>
   <script src="/node_modules/material-design-lite/material.min.js"></script>
   <script src="https://npmcdn.com/vue/dist/vue.js"></script>
@@ -22,11 +24,24 @@
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation. We hide it in small screens. -->
-        <nav class="mdl-navigation mdl-layout--large-screen-only">
-          <span class="mdl-layout-title">Sort by</span>
-          <a class="mdl-navigation__link" href="#" @click="sort = 'date', order= 1">Time</a>
+        <nav class="mdl-navigation">
+          <!-- <span class="mdl-layout-title">Sort</span> -->
+          <!-- <a class="mdl-navigation__link" href="#" @click="sort = 'date', order= 1">Time</a>
           <a class="mdl-navigation__link" href="#" @click="sort = 'site', order= 1">City</a>
-          <a class="mdl-navigation__link" href="#" @click="sort = 'like', order= -1">Like</a>
+          <a class="mdl-navigation__link" href="#" @click="sort = 'like', order= -1">Like</a> -->
+          <!-- Select with arrow-->
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height filter-select">
+            <input class="mdl-textfield__input" type="text" id="sample2" value="Sort by" readonly tabIndex="-1">
+            <label for="sample2">
+                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+            </label>
+            <!-- <label for="sample2" class="mdl-textfield__label"></label> -->
+            <ul for="sample2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                <li class="mdl-menu__item" value="time" @click="sort= 'date', order= 1">Time</li>
+                <li class="mdl-menu__item" value="city" @click="sort= 'site', order= 1">City</li>
+                <li class="mdl-menu__item" value="like" @click="sort= 'like', order= -1">Like</li>
+            </ul>
+        </div>
         </nav>
         <!-- start search form -->
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -43,16 +58,25 @@
     </header>
     <main class="mdl-layout__content ">
       <div class="page-content">
+        <div class="sidebar">
+          <span class="docs-text-styling">
+            <h1 class="mdl-components__classname" id="layout-section/layout">Featured</h1>
+          </span>
+          <div class="mdl-grid featured">
+            <thumbnail class="mdl-cell mdl-cell--12-col" :image="featured"></thumbnail>
+          </div>
+        </div>
+
         <div class=" main-content">
           <span class="docs-text-styling">
             <h1 class="mdl-components__classname" id="layout-section/layout">Memories</h1>
           </span>
-          <div class="mdl-layout__content year" v-for="year in years">
-            <span class="docs-text-styling">
-              <h1 class="mdl-components__classname" id="layout-section/layout">{{year}}</h1>
+          <div class="mdl-layout__content displayRow" v-for="myRow in currentDisplay">
+            <span class="docs-text-styling" v-if="myRow.title.length > 0">
+              <h1 class="mdl-components__classname" id="layout-section/layout">{{myRow.title}}</h1>
             </span>
             <div class="mdl-grid">
-              <thumbnail class="mdl-cell mdl-cell--4-col" v-for="image in $parent.images | orderBy sort order | filterBy searchText in fields | filterBy year in 'date'" :image="image"></thumbnail>
+              <thumbnail class="mdl-cell mdl-cell--4-col" v-for="image in myRow.images | orderBy sort order | filterBy searchText in fields" :image="image"></thumbnail>
             </div>
           </div>
         </div>
@@ -71,25 +95,17 @@
           </div>
         </dialog>
 
-        <div class="sidebar">
-          <span class="docs-text-styling">
-            <h1 class="mdl-components__classname" id="layout-section/layout">Featured</h1>
-          </span>
-          <div class="mdl-grid featured">
-            <thumbnail class="mdl-cell mdl-cell--12-col" :image="featured"></thumbnail>
-          </div>
-        </div>
       </div>
     </main>
   </div>
   <template id="thumbnail-template">
-    <div class="mdl-cell mdl-cell--4-col">
+    <div class="mdl-cell mdl-cell--4-col image-cell">
       <div  id="thumbnail-{{image.id}}" v-on:click="displayImage" class="demo-card-image mdl-card mdl-shadow--2dp" :style="{ 'background-image': 'url(' + image.src + ')' }">
         <div class="mdl-card__title mdl-card--expand"></div>
         <div class="mdl-card__supporting-text">
           <span class="demo-card-image__filename">{{image.desc}}</span>
           <div class="mdl-layout-spacer"></div>
-          <span class="demo-card-image__filename">From {{image.site}}</span>
+          <span class="demo-card-image__filename">{{image.site}}</span>
         </div>
         <div class="mdl-card__actions">
           <span class="demo-card-image__filename">{{image.title}}</span>

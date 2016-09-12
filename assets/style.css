@@ -21,6 +21,10 @@
   text-transform: uppercase;
 }
 
+.image-cell {
+  width: auto;
+}
+
 .demo-card-image > .mdl-card__actions > .material-icons {
   padding-right: 10px;
 }
@@ -33,8 +37,12 @@
   display: flex;
 }
 
-.year {
+.displayRow {
   display: block;
+}
+
+.filter-select {
+  padding: 20px;
 }
 
 .demo-card-image__filename {
@@ -45,7 +53,7 @@
 
 .main-content {
   padding: 1em;
-  width:65%;
+  width:60%;
   margin: 0;
   float: left;
 }
@@ -73,4 +81,33 @@
 #lightbox {
   width: auto;
   max-width: 640px;
+}
+
+@media screen and (max-device-width: 900px) and (min-device-width: 768px), screen and (max-width: 900px) {
+  .sidebar {
+    width: 40%;
+  }
+  .main-content {
+    width: 50%;
+  }
+}
+
+@media screen and (max-device-width: 767px) and (min-device-width: 320px), screen and (max-width: 767px) {
+  .sidebar {
+    width: 100%;
+    float: none;
+  }
+
+  .sidebar > .featured {
+      border: none;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+
+  .dialog {
+    width: auto;
+    min-width: auto;
+  }
 }
